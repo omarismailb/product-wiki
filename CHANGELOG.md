@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 - 2026-06-16
+
+- Fixed the markdown section parser in proposal-traceability-lint and eval-golden: the previous `\z` anchor is a literal "z" in JavaScript regex, so the last `##` section in a file only parsed when its text contained the letter "z". Replaced with a true end-of-input lookahead.
+
 ## 1.1.0 - 2026-06-16
 
 - Enforced the approval gate deterministically with `scripts/intent-lint.mjs`: an acceptance criterion can only be `active` if an approved or implemented proposal introduces it, and every executable check must cover at least one acceptance criterion.
