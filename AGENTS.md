@@ -47,10 +47,20 @@ Use repo skills from `.agents/skills`.
 - `propose-change`: turn a request into a reviewable wiki proposal.
 - `apply-wiki-change`: apply an approved proposal to `wiki/`.
 - `compile-change`: turn an approved wiki change into code and executable checks.
-- `import-codebase`: draft a wiki from an existing repo.
+- `import-codebase`: completely reverse-import an existing repo into the wiki. Inventory the whole codebase first, then import every capability until coverage is complete. Not a single sample.
 - `reconcile-wiki`: find drift between wiki, tests, architecture, design, and code.
 - `review-architecture`: check reuse, boundaries, dependencies, and refactor pressure.
 - `generate-checks`: turn acceptance criteria into executable checks.
+
+## Retrofitting an existing repo
+
+A retrofit is a complete, end-to-end import, not a sample. Use `import-codebase` and:
+
+1. Inventory the WHOLE codebase first into `intake/import-inventory.md` (every surface, module, route, job, data store, and cross-cutting concern).
+2. Import every capability, one reviewable proposal at a time, ticking the inventory as you go. Resume from the inventory across sessions for large repos.
+3. The retrofit is done only when `node scripts/import-coverage.mjs` reports 0 pending and no unmapped top-level source directory.
+
+Do not stop after one capability. Do not edit application code during import.
 
 ## Loops
 

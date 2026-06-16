@@ -200,6 +200,7 @@ function mergePackageScripts() {
     "pw:checks-run": "node scripts/checks-lint.mjs --run",
     "pw:intent": "node scripts/intent-lint.mjs",
     "pw:wiki-links": "node scripts/wiki-link-lint.mjs",
+    "pw:import-coverage": "node scripts/import-coverage.mjs",
     "pw:routines": "node scripts/routine-runner.mjs --all",
   };
   pkg.scripts = pkg.scripts || {};

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 - 2026-06-16
+
+- Made retrofit a complete, end-to-end import instead of a one-capability sample. import-codebase now inventories the WHOLE codebase into intake/import-inventory.md first, then imports every capability until coverage is complete, with resume-across-sessions support for large repos.
+- Added scripts/import-coverage.mjs (and npm run import:coverage / pw:import-coverage) to report retrofit completeness (imported vs pending capabilities, plus a heuristic scan for unmapped top-level source modules); --strict fails when a retrofit is incomplete.
+- Updated the brownfield rubric, AGENTS.md routing, and added templates/import-inventory-template.md so thorough retrofit is explicit for every installer.
+
 ## 1.1.1 - 2026-06-16
 
 - Fixed the markdown section parser in proposal-traceability-lint and eval-golden: the previous `\z` anchor is a literal "z" in JavaScript regex, so the last `##` section in a file only parsed when its text contained the letter "z". Replaced with a true end-of-input lookahead.

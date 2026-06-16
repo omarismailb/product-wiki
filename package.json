@@ -1,6 +1,6 @@
 {
   "name": "product-wiki",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Product Wiki is an open-source harness for building software with coding agents.",
   "license": "MIT",
   "repository": {
@@ -37,7 +37,8 @@
     "routines:check": "node scripts/routine-runner.mjs --check",
     "routines:list": "node scripts/routine-runner.mjs --list",
     "routines:run": "node scripts/routine-runner.mjs --all",
-    "test": "npm run check"
+    "test": "npm run check",
+    "import:coverage": "node scripts/import-coverage.mjs"
   },
   "engines": {
     "node": ">=18"

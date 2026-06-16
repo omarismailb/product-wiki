@@ -8,15 +8,25 @@ Code is evidence, not truth.
 It can show what the product does today.
 It usually cannot recover why it exists, who it is for, or which options were rejected.
 
-## First pass
+A retrofit is a COMPLETE reverse import, not a sample. The deliverable is the whole product
+mapped into the wiki, one capability at a time, until nothing significant is unmapped.
 
-1. Identify the product surfaces.
-2. Identify the main capabilities.
-3. Map docs, tests, routes, modules, and agent instructions.
-4. Choose one capability for the first proposal.
-5. Draft only what can be supported by evidence.
-6. Mark confidence on every inferred unit.
-7. Stop for human review.
+## Phase 1 — inventory the whole codebase first
+
+1. Identify every product surface (routes, endpoints, CLI commands, jobs, queues, webhooks, UI pages).
+2. Walk every significant top-level source directory.
+3. Map the data model: schemas, migrations, key entities.
+4. Read existing intent: README, docs, AGENTS.md, CLAUDE.md, ADRs, design docs, tests.
+5. Record cross-cutting concerns: auth, permissions, secrets, money, tenancy, observability.
+6. Write `intake/import-inventory.md`: every candidate capability, its code paths, confidence,
+   and a `[ ]`/`[x]` status. This is the coverage backbone and the resume point.
+
+## Phase 2 — import every capability
+
+- One proposal per capability, kept small and reviewable.
+- Import ALL of them. If the repo has thirty capabilities, you produce thirty proposals
+  (in batches if needed), not one. Tick each off in the inventory as you go.
+- Re-read the inventory at the start of each session; continue from the first pending entry.
 
 ## Evidence quality
 
@@ -37,11 +47,18 @@ It usually cannot recover why it exists, who it is for, or which options were re
 - Security, auth, permissions, secrets, and data ownership patterns.
 - Deployment and observability files.
 
+## Completeness gate
+
+The import is done only when:
+
+- every inventory entry is `[x]`,
+- `node scripts/import-coverage.mjs` reports 0 pending and no unmapped top-level source dir
+  (or each unmapped area is an explicit non-goal),
+- cross-cutting concerns (auth, money, data ownership) are captured as rules or decisions.
+
 ## Output discipline
 
-Import proposals should be small.
-If the repo has ten capabilities, create one proposal for the first capability.
-
-Do not write final wiki files during import.
-Do not edit app code.
-Do not mark inferred product intent as fact.
+- Small per-capability proposals, but COMPLETE coverage. Never silently stop after a fraction.
+- Do not write final wiki files during import.
+- Do not edit app code.
+- Do not mark inferred product intent as fact.

@@ -75,6 +75,7 @@ const commonRequired = [
   "scripts/checks-lint.mjs",
   "scripts/intent-lint.mjs",
   "scripts/wiki-link-lint.mjs",
+  "scripts/import-coverage.mjs",
   "scripts/eval-golden.mjs",
   "scripts/hook-loop.mjs",
   "scripts/plugin-lint.mjs",
