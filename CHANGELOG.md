@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.2 - 2026-06-16
+
+- Fixed the compile lifecycle guard so approved proposals can remain pending compile without failing Stop hooks.
+- `checks-lint` now requires manifest coverage for implemented proposals and active criteria outside pending approved proposals, while still reporting approved criteria that need compile coverage.
+- Updated `apply-wiki-change`, `compile-change`, AGENTS.md, and install/loop docs to make the approved -> compile -> implemented lifecycle explicit.
+- Added `scripts/lifecycle-lint.mjs` to regression-test approved pending compile, implemented missing coverage, and implemented covered states.
+
 ## 1.3.1 - 2026-06-16
 
 - Replaced brittle missing-template handling with repair-first recovery. Agents should run `node scripts/repair-contracts.mjs --write`, revalidate contracts, and continue if repair succeeds.

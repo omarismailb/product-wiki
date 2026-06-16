@@ -1,6 +1,6 @@
 {
   "name": "product-wiki",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "repository": "https://github.com/omarismailb/product-wiki",
   "license": "MIT",
   "minimum_node": "18",
@@ -81,6 +81,7 @@
     "doctor": "node scripts/doctor.mjs",
     "hook_loop": "node scripts/hook-loop.mjs --event manual",
     "repair_contracts": "node scripts/repair-contracts.mjs --write",
+    "lifecycle_lint": "node scripts/lifecycle-lint.mjs",
     "skill_lint": "node scripts/skill-lint.mjs",
     "template_lint": "node scripts/template-lint.mjs",
     "routines": "node scripts/routine-runner.mjs --all",

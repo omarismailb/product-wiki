@@ -198,6 +198,7 @@ function mergePackageScripts() {
     "pw:doctor": "node scripts/doctor.mjs",
     "pw:checks": "node scripts/checks-lint.mjs",
     "pw:checks-run": "node scripts/checks-lint.mjs --run",
+    "pw:lifecycle": "node scripts/lifecycle-lint.mjs",
     "pw:intent": "node scripts/intent-lint.mjs",
     "pw:wiki-links": "node scripts/wiki-link-lint.mjs",
     "pw:import-coverage": "node scripts/import-coverage.mjs",

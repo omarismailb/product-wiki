@@ -40,7 +40,7 @@ Use the full path when the change affects behaviour, user journeys, data, securi
    - acceptance criteria to tests
    - rules to regression checks
    - journeys to integration or E2E checks where appropriate
-   - update `checks/manifest.json` so every active acceptance criterion has a command that will run against code
+   - update `checks/manifest.json` so every acceptance criterion in the approved change has a command that will run against code
 5. Plan the edit:
    - files
    - interfaces
@@ -58,7 +58,8 @@ Use the full path when the change affects behaviour, user journeys, data, securi
    - update traceability
    - update dependency links
    - record decisions or assumptions discovered during implementation
-10. Run `node scripts/product-wiki-check.mjs`.
+10. Mark the proposal `implemented` only after the manifest coverage and code checks pass.
+11. Run `node scripts/product-wiki-check.mjs`.
 
 ## Production questions
 

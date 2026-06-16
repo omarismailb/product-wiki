@@ -10,6 +10,7 @@ const steps = [
   ["proposal-lint", ["scripts/proposal-lint.mjs"]],
   ["proposal-traceability-lint", ["scripts/proposal-traceability-lint.mjs"]],
   ["checks-lint", ["scripts/checks-lint.mjs"]],
+  ["lifecycle-lint", ["scripts/lifecycle-lint.mjs"]],
   ["intent-lint", ["scripts/intent-lint.mjs"]],
   ["eval-golden", ["scripts/eval-golden.mjs"]],
   ["plugin-lint", ["scripts/plugin-lint.mjs"]],

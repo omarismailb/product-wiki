@@ -84,7 +84,7 @@ Expected behaviour:
 
 ## Scenario 5: Compiler Discipline
 
-After approving a proposal with active acceptance criteria, ask:
+After approving a proposal whose acceptance criteria are pending compile, ask:
 
 ```text
 Compile the approved proposal into code.

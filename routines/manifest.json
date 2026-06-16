@@ -36,7 +36,7 @@
       "commands": [
         "node scripts/checks-lint.mjs --run"
       ],
-      "agent_follow_up": "Use generate-checks if an active acceptance criterion lacks executable coverage."
+      "agent_follow_up": "Use generate-checks if an implemented acceptance criterion lacks executable coverage."
     },
     {
       "id": "routine.architecture-drift",

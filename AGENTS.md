@@ -125,7 +125,10 @@ Hooks, scripts, CI, and permissions enforce the hard rules.
 
 The approval gate is enforced two ways:
 
-- Deterministically at check time. `scripts/intent-lint.mjs` fails if an acceptance criterion is `active` without an approved or implemented proposal introducing it, and if any executable check does not cover an acceptance criterion. This runs inside `node scripts/product-wiki-check.mjs` and CI.
+- Deterministically at check time.
+  `scripts/intent-lint.mjs` fails if an acceptance criterion is `active` without an approved or implemented proposal introducing it.
+  `scripts/checks-lint.mjs` requires manifest coverage once a proposal is `implemented`, while approved proposals can remain pending compile.
+  This runs inside `node scripts/product-wiki-check.mjs` and CI.
 - Optionally at edit time. The pre-tool-use guard blocks wiki edits without an approved proposal when `PRODUCT_WIKI_ENFORCE=block` is set. The default is advisory.
 
 Do not treat `CONSTITUTION.md` as enforcement.

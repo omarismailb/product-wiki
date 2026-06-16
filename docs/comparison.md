@@ -28,7 +28,7 @@ The center is the product wiki:
 ## Maturity
 
 Product Wiki is a production-ready harness with a deliberately narrow claim.
-It persists product intent, routes non-trivial requests through proposals, keeps a traceable wiki, and requires executable checks for active acceptance criteria.
+It persists product intent, routes non-trivial requests through proposals, keeps a traceable wiki, and requires executable checks once approved criteria become implemented behaviour.
 
 Future releases should be driven by real repo use: where import, proposal, compile, and reconciliation workflows fail under pressure.
 

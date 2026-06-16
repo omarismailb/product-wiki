@@ -78,7 +78,7 @@ Expected first failure, when the behaviour is not implemented yet:
 
 ## Completion checklist
 
-- [ ] Every active acceptance criterion has a manifest entry.
+- [ ] Every acceptance criterion in this implemented change has a manifest entry.
 - [ ] Every manifest command runs successfully or has explicit manual evidence.
 - [ ] The implementation uses or extends the named capability.
 - [ ] New decisions, assumptions, or risks discovered during implementation are recorded.

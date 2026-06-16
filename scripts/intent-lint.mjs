@@ -3,8 +3,9 @@
 // intent-lint: enforce the approval gate deterministically.
 //
 // 1. An acceptance criterion may only be `status: active` if an `approved` or
-//    `implemented` proposal introduced it. Active criteria drive executable
-//    checks and therefore code, so they must trace back to human approval.
+//    `implemented` proposal introduced it. Active criteria must trace back to
+//    human approval before they can become pending compile or implemented
+//    behaviour.
 // 2. Every executable check (unit, integration, e2e) must cover at least one
 //    acceptance criterion, so running code always traces to product intent.
 

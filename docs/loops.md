@@ -65,7 +65,7 @@ The deterministic part is automatic:
 - wiki structure linting
 - broken wiki-link detection
 - proposal linting
-- acceptance-criteria-to-check coverage
+- acceptance-criteria-to-check coverage once a proposal is implemented
 - approval-gate enforcement (active criteria trace to an approved proposal)
 - check manifest execution
 - routine manifest validation

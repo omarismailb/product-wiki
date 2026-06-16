@@ -73,6 +73,7 @@ const commonRequired = [
   "scripts/proposal-lint.mjs",
   "scripts/proposal-traceability-lint.mjs",
   "scripts/checks-lint.mjs",
+  "scripts/lifecycle-lint.mjs",
   "scripts/intent-lint.mjs",
   "scripts/skill-lint.mjs",
   "scripts/template-lint.mjs",

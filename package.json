@@ -1,6 +1,6 @@
 {
   "name": "product-wiki",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Product Wiki is an open-source harness for building software with coding agents.",
   "license": "MIT",
   "repository": {
@@ -29,6 +29,7 @@
     "proposal-traceability:lint": "node scripts/proposal-traceability-lint.mjs",
     "checks:lint": "node scripts/checks-lint.mjs",
     "checks:run": "node scripts/checks-lint.mjs --run",
+    "lifecycle:lint": "node scripts/lifecycle-lint.mjs",
     "intent:lint": "node scripts/intent-lint.mjs",
     "wiki-link:lint": "node scripts/wiki-link-lint.mjs",
     "eval": "node scripts/eval-golden.mjs",

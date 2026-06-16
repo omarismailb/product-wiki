@@ -36,7 +36,9 @@ function frontmatter(text) {
 
 function collectIds() {
   const ids = new Set();
-  const activeCriteria = new Set();
+  const approvedCriteria = new Set();
+  const implementedCriteria = new Set();
+  const activeWikiCriteria = new Set();
   const files = [
     ...walk(path.join(ROOT, "wiki"), (file) => file.endsWith(".md")),
     ...walk(path.join(ROOT, "intake/proposals"), (file) => file.endsWith(".md")),
@@ -52,13 +54,33 @@ function collectIds() {
       ids.add(acId);
     }
     if (parsed.data.type === "acceptance-criterion" && parsed.data.status === "active" && parsed.data.id) {
-      activeCriteria.add(parsed.data.id);
+      activeWikiCriteria.add(parsed.data.id);
     }
-    if (parsed.data.type === "proposal" && ["approved", "implemented"].includes(parsed.data.status)) {
-      for (const acId of acIds) activeCriteria.add(acId);
+    if (parsed.data.type === "proposal" && parsed.data.status === "approved") {
+      for (const acId of acIds) approvedCriteria.add(acId);
+    }
+    if (parsed.data.type === "proposal" && parsed.data.status === "implemented") {
+      for (const acId of acIds) implementedCriteria.add(acId);
     }
   }
-  return { ids, activeCriteria };
+
+  // Lifecycle:
+  // - approved proposal: ready for compile-change, checks may not exist yet.
+  // - implemented proposal or active criterion outside a pending proposal: checks must exist.
+  const criteriaRequiringCoverage = new Set(implementedCriteria);
+  const pendingCompileCriteria = new Set();
+
+  for (const acId of activeWikiCriteria) {
+    if (implementedCriteria.has(acId)) {
+      criteriaRequiringCoverage.add(acId);
+    } else if (approvedCriteria.has(acId)) {
+      pendingCompileCriteria.add(acId);
+    } else {
+      criteriaRequiringCoverage.add(acId);
+    }
+  }
+
+  return { ids, criteriaRequiringCoverage, pendingCompileCriteria };
 }
 
 const errors = [];
@@ -81,7 +103,7 @@ if (!manifest || !Array.isArray(manifest.checks)) {
 }
 
 const ids = new Set();
-const { ids: resolvableIds, activeCriteria } = collectIds();
+const { ids: resolvableIds, criteriaRequiringCoverage, pendingCompileCriteria } = collectIds();
 const coveredIds = new Set();
 
 for (const check of manifest.checks || []) {
@@ -126,7 +148,7 @@ for (const check of manifest.checks || []) {
   }
 }
 
-for (const id of activeCriteria) {
+for (const id of criteriaRequiringCoverage) {
   if (!coveredIds.has(id)) {
     errors.push(`active acceptance criterion is not covered by checks/manifest.json: ${id}`);
   }
@@ -152,4 +174,12 @@ if (RUN) {
   }
 }
 
-console.log(`checks-lint passed: ${manifest.checks.length} check(s).`);
+const pending = [...pendingCompileCriteria].filter((id) => !coveredIds.has(id));
+if (pending.length) {
+  console.log(
+    `checks-lint passed: ${manifest.checks.length} check(s), ${pending.length} approved criterion/criteria pending compile.`,
+  );
+  console.log(`pending compile coverage: ${pending.join(", ")}`);
+} else {
+  console.log(`checks-lint passed: ${manifest.checks.length} check(s).`);
+}

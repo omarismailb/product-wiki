@@ -93,7 +93,10 @@ It does not edit application code, application tests, product wiki units, propos
 
 ## Enforcement
 
-The approval gate is enforced deterministically: `node scripts/product-wiki-check.mjs` runs `intent-lint`, which fails if an acceptance criterion is `active` without an approved or implemented proposal, or if an executable check does not cover a criterion.
+The approval gate is enforced deterministically.
+`node scripts/product-wiki-check.mjs` runs `intent-lint`, which fails if an acceptance criterion is `active` without an approved or implemented proposal.
+It also runs `checks-lint`, which requires manifest coverage once a proposal is `implemented`.
+Approved proposals can remain pending compile so the agent can generate checks before code without fighting the hook.
 
 For a hard block at edit time, set `PRODUCT_WIKI_ENFORCE=block` in `.claude/settings.json` or `.codex/config.toml`.
 In block mode the pre-tool-use guard refuses edits to `wiki/` until an approved proposal exists.
