@@ -6,9 +6,10 @@
       "mode": "deterministic",
       "cadence": "weekly, before large features, and after imports",
       "playbook": "routines/wiki-health.md",
-      "purpose": "Catch broken wiki structure and stale product-wiki hygiene before the agent relies on it.",
+      "purpose": "Catch broken wiki structure, broken links, and stale product-wiki hygiene before the agent relies on it.",
       "commands": [
-        "node scripts/wiki-lint.mjs"
+        "node scripts/wiki-lint.mjs",
+        "node scripts/wiki-link-lint.mjs"
       ],
       "agent_follow_up": "Use reconcile-wiki for stale drafts, missing links, or judgement calls."
     },
@@ -40,12 +41,14 @@
     {
       "id": "routine.architecture-drift",
       "name": "Architecture drift",
-      "mode": "agent-review",
+      "mode": "deterministic",
       "cadence": "after several features or when refactor pressure appears",
       "playbook": "routines/architecture-drift.md",
-      "purpose": "Look for duplicate capabilities, mixed ownership, and decisions contradicted by implementation.",
-      "commands": [],
-      "agent_follow_up": "Use review-architecture, then raise a proposal if a refactor or decision needs approval."
+      "purpose": "Enforce intent traceability (active criteria trace to approval; executable checks trace to criteria), then prompt agent review for judgement calls like duplicate capabilities.",
+      "commands": [
+        "node scripts/intent-lint.mjs"
+      ],
+      "agent_follow_up": "Use review-architecture for duplicate capabilities or decisions contradicted by code, then raise a proposal if a refactor needs approval."
     },
     {
       "id": "routine.design-drift",

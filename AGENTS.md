@@ -97,9 +97,12 @@ Also run the product repo's normal tests when this harness is copied into an app
 ## Hard guardrails
 
 Markdown files guide the agent.
-Hooks, scripts, CI, and permissions enforce the hard rules that are currently wired.
-The approval gate is enforced as an agent workflow contract.
-Teams that need a hard block can tighten the wiki-edit hook once their approval workflow is settled.
+Hooks, scripts, CI, and permissions enforce the hard rules.
+
+The approval gate is enforced two ways:
+
+- Deterministically at check time. `scripts/intent-lint.mjs` fails if an acceptance criterion is `active` without an approved or implemented proposal introducing it, and if any executable check does not cover an acceptance criterion. This runs inside `node scripts/product-wiki-check.mjs` and CI.
+- Optionally at edit time. The pre-tool-use guard blocks wiki edits without an approved proposal when `PRODUCT_WIKI_ENFORCE=block` is set. The default is advisory.
 
 Do not treat `CONSTITUTION.md` as enforcement.
 It records principles.

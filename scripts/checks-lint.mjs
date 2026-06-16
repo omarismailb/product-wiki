@@ -105,7 +105,10 @@ for (const check of manifest.checks || []) {
       if (typeof covered !== "string" || !/^[a-z0-9.-]+$/.test(covered)) {
         errors.push(`${check.id}: invalid covered id "${covered}"`);
       } else if (!resolvableIds.has(covered)) {
-        errors.push(`${check.id}: covered id does not resolve: ${covered}`);
+        errors.push(
+          `${check.id}: covered id "${covered}" does not resolve. ` +
+            `It must be a stable id declared in wiki/ (frontmatter id) or referenced in a proposal.`,
+        );
       } else {
         coveredIds.add(covered);
       }

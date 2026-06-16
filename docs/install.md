@@ -59,6 +59,17 @@ That keeps the managed files tied to a clear upstream version.
 The installer updates existing `AGENTS.md` and `CLAUDE.md` files with an idempotent managed block between `product-wiki-routing` markers.
 That makes normal product requests route through Product Wiki immediately while preserving the repo's existing instructions.
 
+If the target repo has a `package.json`, the installer also adds collision-free `pw:*` scripts (for example `npm run pw:check`, `npm run pw:doctor`, `npm run pw:checks-run`) without touching the repo's own scripts.
+You can always call the scripts directly with `node scripts/...`.
+
+## Enforcement
+
+The approval gate is enforced deterministically: `node scripts/product-wiki-check.mjs` runs `intent-lint`, which fails if an acceptance criterion is `active` without an approved or implemented proposal, or if an executable check does not cover a criterion.
+
+For a hard block at edit time, set `PRODUCT_WIKI_ENFORCE=block` in `.claude/settings.json` or `.codex/config.toml`.
+In block mode the pre-tool-use guard refuses edits to `wiki/` until an approved proposal exists.
+The default is advisory.
+
 ## What gets updated
 
 Product Wiki separates managed harness files from user-owned product files.
