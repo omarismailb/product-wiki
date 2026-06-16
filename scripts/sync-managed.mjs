@@ -179,6 +179,45 @@ function upsertRoutingBlock(rel) {
   fs.writeFileSync(target, next);
 }
 
+function mergePackageScripts() {
+  const target = path.join(TARGET, "package.json");
+  if (!fs.existsSync(target)) {
+    planned.push({ action: "skip-package-scripts: no package.json", path: "package.json" });
+    return;
+  }
+  let pkg;
+  try {
+    pkg = JSON.parse(fs.readFileSync(target, "utf8"));
+  } catch {
+    planned.push({ action: "skip-package-scripts: invalid JSON", path: "package.json" });
+    return;
+  }
+  // Collision-free namespace so we never clobber the repo's own scripts.
+  const desired = {
+    "pw:check": "node scripts/product-wiki-check.mjs",
+    "pw:doctor": "node scripts/doctor.mjs",
+    "pw:checks": "node scripts/checks-lint.mjs",
+    "pw:checks-run": "node scripts/checks-lint.mjs --run",
+    "pw:intent": "node scripts/intent-lint.mjs",
+    "pw:wiki-links": "node scripts/wiki-link-lint.mjs",
+    "pw:routines": "node scripts/routine-runner.mjs --all",
+  };
+  pkg.scripts = pkg.scripts || {};
+  const added = [];
+  for (const [key, value] of Object.entries(desired)) {
+    if (!(key in pkg.scripts)) {
+      pkg.scripts[key] = value;
+      added.push(key);
+    }
+  }
+  if (added.length === 0) {
+    planned.push({ action: "package-scripts-unchanged", path: "package.json" });
+    return;
+  }
+  planned.push({ action: `add-package-scripts: ${added.join(", ")}`, path: "package.json" });
+  if (write) fs.writeFileSync(target, `${JSON.stringify(pkg, null, 2)}\n`);
+}
+
 function syncPath(rel, mode) {
   for (const file of listFiles(rel)) {
     const source = path.join(SOURCE, file);
@@ -205,6 +244,7 @@ for (const rel of manifest.ownership.create_if_missing || []) syncPath(rel, "cre
 for (const rel of manifest.ownership.merge_required || []) syncPath(rel, "merge_required");
 upsertRoutingBlock("AGENTS.md");
 upsertRoutingBlock("CLAUDE.md");
+mergePackageScripts();
 
 const installRecord = {
   name: manifest.name,

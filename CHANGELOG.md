@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 - 2026-06-16
+
+- Enforced the approval gate deterministically with `scripts/intent-lint.mjs`: an acceptance criterion can only be `active` if an approved or implemented proposal introduces it, and every executable check must cover at least one acceptance criterion.
+- Added an opt-in hard block to the pre-tool-use guard (`PRODUCT_WIKI_ENFORCE=block`) that refuses wiki edits without an approved proposal; advisory remains the default.
+- Fixed `scripts/doctor.mjs` local-path detection: now generic (current and cross-machine home paths) instead of hardcoded to one author's username/folder, and it only scans committable (tracked or non-ignored) files.
+- Added `scripts/wiki-link-lint.mjs` to catch broken typed `[[unit.id]]` links, and gave the `wiki-health` and `architecture-drift` routines real deterministic commands instead of agent-only no-ops.
+- `scripts/sync-managed.mjs` now merges collision-free `pw:*` npm scripts into an existing target `package.json` so installed repos get `npm run pw:check` and friends.
+- Clearer `checks-lint` guidance when a covered id does not resolve.
+
 ## 1.0.0 - 2026-06-16
 
 - Added version metadata and managed-file ownership rules.

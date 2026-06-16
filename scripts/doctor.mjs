@@ -1,13 +1,24 @@
 #!/usr/bin/env node
 
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
 const ROOT = process.cwd();
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Catch local machine paths leaking into committed files. Generic, not tied to
+// any one username or folder: this machine's home dir, plus any absolute home
+// path (cross-machine leak).
 const LOCAL_PATH_PATTERNS = [
-  new RegExp(`/Users/${"omar"}`),
-  new RegExp(`0_${"Projects"}`),
+  new RegExp(escapeRegExp(os.homedir()) + "(/|\\\\|$)"),
+  /\/Users\/[A-Za-z0-9._-]+\//,
+  /\/home\/[A-Za-z0-9._-]+\//,
+  /[A-Za-z]:\\Users\\[A-Za-z0-9._-]+\\/,
 ];
 const ROUTING_MARKER = "product-wiki-routing:start";
 const errors = [];
@@ -62,6 +73,8 @@ const commonRequired = [
   "scripts/proposal-lint.mjs",
   "scripts/proposal-traceability-lint.mjs",
   "scripts/checks-lint.mjs",
+  "scripts/intent-lint.mjs",
+  "scripts/wiki-link-lint.mjs",
   "scripts/eval-golden.mjs",
   "scripts/hook-loop.mjs",
   "scripts/plugin-lint.mjs",
@@ -137,10 +150,34 @@ if (manifest) {
 readJson("checks/manifest.json");
 if (exists("package.json")) readJson("package.json");
 
-for (const file of walk(ROOT)) {
+// Only scan files that would actually be committed (tracked or untracked but
+// not git-ignored). This avoids false positives on local scratch and reports,
+// and falls back to a full walk outside a git repo.
+function committableFiles() {
+  const git = spawnSync("git", ["ls-files", "--cached", "--others", "--exclude-standard"], {
+    cwd: ROOT,
+    encoding: "utf8",
+  });
+  if (git.status === 0) {
+    return git.stdout
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((rel) => path.join(ROOT, rel));
+  }
+  return walk(ROOT);
+}
+
+for (const file of committableFiles()) {
   const rel = path.relative(ROOT, file);
   if (rel.startsWith(".product-wiki/")) continue;
-  const text = fs.readFileSync(file, "utf8");
+  if (!fs.existsSync(file) || !fs.statSync(file).isFile()) continue;
+  let text;
+  try {
+    text = fs.readFileSync(file, "utf8");
+  } catch {
+    continue;
+  }
   if (LOCAL_PATH_PATTERNS.some((pattern) => pattern.test(text))) {
     errors.push(`${rel}: contains a local machine path`);
   }

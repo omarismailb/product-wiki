@@ -63,10 +63,14 @@ The deterministic part is automatic:
 
 - turn-end hook checks in Codex and Claude Code
 - wiki structure linting
+- broken wiki-link detection
 - proposal linting
 - acceptance-criteria-to-check coverage
+- approval-gate enforcement (active criteria trace to an approved proposal)
 - check manifest execution
 - routine manifest validation
+
+Two routines are now deterministic that previously only prompted an agent: `wiki-health` runs the link check, and `architecture-drift` runs `intent-lint`. `design-drift` remains an agent-review routine because comparing UI against design intent needs judgement, not a script.
 
 These commands run through native hooks, `node scripts/product-wiki-check.mjs`, and CI.
 
