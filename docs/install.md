@@ -7,11 +7,23 @@ The agent should inspect the target repo, preserve existing project rules, insta
 
 ## New repo
 
+Ask Codex or Claude Code to start from Product Wiki.
+
+Paste this into a fresh folder:
+
+```text
+Start a new product from https://github.com/omarismailb/product-wiki.
+
+Set up the repo, run the harness checks, and then work with me on the first product wiki proposal before writing application code.
+```
+
+The agent can run:
+
 ```bash
 git clone https://github.com/omarismailb/product-wiki.git my-product
 cd my-product
-npm run check
-npm run doctor
+node scripts/product-wiki-check.mjs
+node scripts/doctor.mjs
 ```
 
 Start normally:
@@ -23,9 +35,6 @@ Do not write code until I approve the wiki proposal.
 ```
 
 ## Existing repo
-
-Do not manually copy folders.
-Ask the agent to install the harness and review the merge.
 
 Open the target repo in Codex or Claude Code and paste:
 
@@ -43,7 +52,7 @@ Explain how to run Product Wiki routines with node scripts/routine-runner.mjs --
 Report files changed, files skipped, and anything requiring human judgement.
 ```
 
-The agent can use:
+The agent can use this underneath:
 
 ```bash
 tmp="$(mktemp -d)"

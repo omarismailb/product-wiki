@@ -1,7 +1,7 @@
 {
   "name": "product-wiki",
   "version": "1.0.0",
-  "description": "A product wiki harness for building software with coding agents.",
+  "description": "Product Wiki is an open-source harness for building software with coding agents.",
   "author": {
     "name": "Omar Ismail",
     "url": "https://github.com/omarismailb"
@@ -20,8 +20,8 @@
   "skills": "./.agents/skills/",
   "interface": {
     "displayName": "Product Wiki",
-    "shortDescription": "Route product requests through a living product wiki before code.",
-    "longDescription": "Product Wiki helps coding agents turn feature ideas, bug reports, and workflow changes into reviewed product wiki changes, executable checks, and implementation steps before code.",
+    "shortDescription": "An open-source harness for building software with coding agents.",
+    "longDescription": "Product Wiki is an open-source harness for building software with coding agents. It is especially useful for non-technical builders who want to build complex products without the codebase turning messy.",
     "developerName": "Omar Ismail",
     "category": "Developer Tools",
     "capabilities": [

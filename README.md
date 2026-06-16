@@ -1,7 +1,7 @@
 # Product Wiki
 
-Product Wiki is an open-source harness for building software with coding agents like Claude Code or Codex.
-It is especially useful for non-technical builders who want to build more complex products without the codebase turning messy.
+Product Wiki is an open-source harness for building software with coding agents.
+It is especially useful for non-technical builders who want to build complex products without the codebase turning messy.
 
 Coding agents are becoming very good at turning natural language into production-grade code.
 The problem is that they mostly reason from the current codebase and the current chat thread.
@@ -38,13 +38,23 @@ Otherwise the wiki becomes another stale document with more confidence around it
 
 ## Install in a new repo
 
-Clone this repo when Product Wiki is the starting point for a new product.
+The easiest path is to ask Codex or Claude Code to start from Product Wiki.
+
+Open a fresh folder and paste:
+
+```text
+Start a new product from https://github.com/omarismailb/product-wiki.
+
+Set up the repo, run the harness checks, and then work with me on the first product wiki proposal before writing application code.
+```
+
+The agent can run the setup underneath:
 
 ```bash
 git clone https://github.com/omarismailb/product-wiki.git my-product
 cd my-product
-npm run check
-npm run doctor
+node scripts/product-wiki-check.mjs
+node scripts/doctor.mjs
 ```
 
 Then start with a product request:
