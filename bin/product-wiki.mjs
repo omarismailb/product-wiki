@@ -4,9 +4,9 @@
 //
 // One-command install/upgrade, no global install needed:
 //
-//   npx github:omarismailb/product-wiki#v1.5.0 init      install into the current repo
-//   npx github:omarismailb/product-wiki#v1.5.0 sync      re-sync managed files (upgrade)
-//   npx github:omarismailb/product-wiki#v1.5.0 init --dry-run   preview without writing
+//   npx github:omarismailb/product-wiki#v1.5.1 init      install into the current repo
+//   npx github:omarismailb/product-wiki#v1.5.1 sync      re-sync managed files (upgrade)
+//   npx github:omarismailb/product-wiki#v1.5.1 init --dry-run   preview without writing
 //
 // It wraps scripts/sync-managed.mjs (the ownership-aware copy) and then runs the
 // harness checks, so the documented install is one line instead of a temp-dir dance.
@@ -37,7 +37,7 @@ Usage (no global install needed):
   npx github:omarismailb/product-wiki#<tag> init --dry-run   preview the plan, write nothing
 
 Run from the root of the repo you want to add Product Wiki to.
-Pin to a release tag (#v1.5.0) for a reproducible install.`);
+Pin to a release tag (#v1.5.1) for a reproducible install.`);
   process.exit(0);
 }
 

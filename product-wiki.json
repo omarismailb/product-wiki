@@ -1,6 +1,6 @@
 {
   "name": "product-wiki",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "repository": "https://github.com/omarismailb/product-wiki",
   "license": "MIT",
   "minimum_node": "18",

@@ -59,12 +59,12 @@ They are signposts for agents, not comments on every line.
 From the root of the repo you want Product Wiki in:
 
 ```bash
-npx github:omarismailb/product-wiki#v1.5.0 init
+npx github:omarismailb/product-wiki#v1.5.1 init
 ```
 
 That installs the managed harness, activates routing in `AGENTS.md` / `CLAUDE.md` without
 touching your local rules, adds `pw:*` scripts, and runs the checks — no global install.
-Pin to a release tag (`#v1.5.0`) for a reproducible install. Use `sync` instead of `init`
+Pin to a release tag (`#v1.5.1`) for a reproducible install. Use `sync` instead of `init`
 to upgrade later, and `--dry-run` to preview. The agent-led and manual paths below still work.
 
 ## Install in a new repo

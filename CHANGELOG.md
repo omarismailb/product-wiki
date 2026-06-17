@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.1 - 2026-06-17
+
+- Fixed the installer for npm/npx delivery: npm packaging strips the .claude/skills symlinks, which left mirrored Claude skills missing after `npx github:... init`. sync-managed now always reconstructs .claude/skills from .agents/skills (the real content), so installs are correct whether or not symlinks survive packaging or copying.
+
 ## 1.5.0 - 2026-06-17
 
 - Added a one-command installer CLI (bin/product-wiki.mjs). Install or upgrade with a single line and no global install: `npx github:omarismailb/product-wiki#v1.5.0 init` (or `sync`), pinned to a release tag for reproducibility. It wraps the existing ownership-aware sync-managed copy and then runs the harness checks. The temp-dir clone path still works as a fallback.

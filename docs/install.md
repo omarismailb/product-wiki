@@ -3,12 +3,12 @@
 The quickest path is the installer CLI, run from the root of your repo (no global install):
 
 ```bash
-npx github:omarismailb/product-wiki#v1.5.0 init      # install into the current repo
-npx github:omarismailb/product-wiki#v1.5.0 sync      # re-sync managed files (upgrade)
-npx github:omarismailb/product-wiki#v1.5.0 init --dry-run   # preview, write nothing
+npx github:omarismailb/product-wiki#v1.5.1 init      # install into the current repo
+npx github:omarismailb/product-wiki#v1.5.1 sync      # re-sync managed files (upgrade)
+npx github:omarismailb/product-wiki#v1.5.1 init --dry-run   # preview, write nothing
 ```
 
-Pin to a release tag (`#v1.5.0`) for a reproducible install. The CLI wraps the ownership-aware
+Pin to a release tag (`#v1.5.1`) for a reproducible install. The CLI wraps the ownership-aware
 `sync-managed.mjs` copy and then runs the harness checks. The agent-led and manual paths below
 remain available and do the same thing underneath.
 

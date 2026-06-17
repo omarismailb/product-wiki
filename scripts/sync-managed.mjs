@@ -226,6 +226,24 @@ function mergePackageScripts() {
   if (write) fs.writeFileSync(target, `${JSON.stringify(pkg, null, 2)}\n`);
 }
 
+function mirrorClaudeSkills() {
+  // .claude/skills mirrors .agents/skills. The source uses symlinks, but npm
+  // packaging (and some copy methods) strip symlinks, so always reconstruct the
+  // mirror from .agents/skills (the real content) — both on install and upgrade.
+  const agentsSkills = path.join(SOURCE, ".agents/skills");
+  if (!fs.existsSync(agentsSkills)) return;
+  for (const entry of fs.readdirSync(agentsSkills, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const name = entry.name;
+    const sourceSkill = path.join(agentsSkills, name);
+    const targetSkill = path.join(TARGET, ".claude/skills", name);
+    planned.push({ action: "mirror-claude-skill", path: `.claude/skills/${name}` });
+    if (!write) continue;
+    fs.rmSync(targetSkill, { force: true, recursive: true });
+    copyDirectory(sourceSkill, targetSkill);
+  }
+}
+
 function syncPath(rel, mode) {
   for (const file of listFiles(rel)) {
     const source = path.join(SOURCE, file);
@@ -250,6 +268,7 @@ function syncPath(rel, mode) {
 for (const rel of manifest.ownership.managed_core || []) syncPath(rel, "replace");
 for (const rel of manifest.ownership.create_if_missing || []) syncPath(rel, "create_if_missing");
 for (const rel of manifest.ownership.merge_required || []) syncPath(rel, "merge_required");
+mirrorClaudeSkills();
 upsertRoutingBlock("AGENTS.md");
 upsertRoutingBlock("CLAUDE.md");
 mergePackageScripts();
